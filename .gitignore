@@ -1,0 +1,8 @@
+/downloads/
+/.vm/
+/.vm-tools/
+/evidence/*
+!/evidence/README.md
+**/__pycache__/
+*.py[cod]
+.DS_Store

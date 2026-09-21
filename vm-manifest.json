@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "verified-local-baseline-not-published",
+  "architecture": "Apple Silicon arm64",
+  "guest": {
+    "product": "macOS",
+    "version": "15.6.1",
+    "build": "24G90",
+    "cpu_count": 4,
+    "memory_gib": 8,
+    "disk_gib": 40,
+    "network": "nat",
+    "host_directory_shares": 0,
+    "clipboard_bridge": false
+  },
+  "components": {
+    "cua_base_commit": "9bbfa7dd3e27ca7f1861ede70aaca390174493f9",
+    "lume_installed_version": "0.5.3",
+    "driver_version": "0.28.2",
+    "python_version": "3.12.14",
+    "claude_agent_sdk_target": "0.2.124",
+    "claude_agent_sdk_verified_installed": false
+  },
+  "secrets_in_image": false,
+  "notes": "Manifest records the verified local setup. No VM image is published by this repository."
+}
