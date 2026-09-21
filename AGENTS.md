@@ -2,7 +2,7 @@
 
 ## 先读与当前路线
 
-先完整读取根 README.md、Pi_Agent_Development_Plan.md、PROGRESS.md，再检查 Git 与实际工作区。涉及 VM 或计算器时，再读 tools/mac_vm/README.md 与 patches/cua/README.md。
+先完整读取根 Pi_Agent_Development_Plan.md、PROGRESS.md，再检查 Git 与实际工作区。涉及 VM 或计算器时，再读 tools/mac_vm/README.md 与 patches/cua/README.md。
 
 用户已选定 Pi：先交付通用 Agent，再开发更强 Computer Use，macOS 原生能力后置。当前主计划为 Pi_Agent_Development_Plan.md；旧方案已从当前树移除，可在 Git 历史查询。
 
@@ -35,7 +35,7 @@ Pi 尚未安装或验收；M0 环境、M1 固定计算器流程历史通过，�
 
 计算器回归必须同时检查真实操作轨迹、新界面显示、文件读回和独立期望值；期望值不得作为执行答案，禁止 eval 用户表达式。保留 RUNNING、SUCCEEDED、FAILED、BLOCKED、UNVERIFIED 结果语义。
 
-每阶段更新 PROGRESS 与 README，记录实际改动、上游版本、测试命令、证据、失败、阻塞和下一步。区分未运行、mock/unit、真实模型与真实 VM 验收，不因文档更新标记实现完成。
+每阶段更新 PROGRESS，记录实际改动、上游版本、测试命令、证据、失败、阻塞和下一步。区分未运行、mock/unit、真实模型与真实 VM 验收，不因文档更新标记实现完成。
 
 ## 仓库协作
 
