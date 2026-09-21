@@ -2,20 +2,20 @@
 
 ## 先读与当前路线
 
-先完整读取根 README.md、Pi_Agent_Development_Plan.md、PROGRESS.md，再检查 Git 与实际工作区。涉及历史 VM 或计算器时，再读 CODEX_HANDOFF.md、Mac_OS_Agent_MVP_Plan_v0.1.md 及样例 README。
+先完整读取根 README.md、Pi_Agent_Development_Plan.md、PROGRESS.md，再检查 Git 与实际工作区。涉及 VM 或计算器时，再读 tools/mac_vm/README.md 与 patches/cua/README.md。
 
-用户已选定 Pi：先交付通用 Agent，再开发更强 Computer Use，macOS 原生能力后置。当前主计划为 Pi_Agent_Development_Plan.md；旧交接与 v0.1/v0.2 中的 Claude SDK、OpenCode 选型和旧阶段顺序属于历史，不覆盖当前路线。
+用户已选定 Pi：先交付通用 Agent，再开发更强 Computer Use，macOS 原生能力后置。当前主计划为 Pi_Agent_Development_Plan.md；旧方案已从当前树移除，可在 Git 历史查询。
 
 Pi 尚未安装或验收；M0 环境、M1 固定计算器流程历史通过，不代表 Pi 或 Computer Use 已完成。以源码、版本和真实运行结果为准。
 
 ## 实现边界
 
 - 复用 Pi 现成 TUI、会话、上下文、扩展与 SDK，不默认重写内核或再套第二套主循环。
-- 新 Pi 接入拟放根 agent/；既有 cua/samples/mac_agent_mvp/ 保留为执行与回归资产，不盲目搬迁或重写 Python 工具。
+- 新 Pi 接入拟放根 agent/；现有 Python 工具在 tools/mac_vm/，Lume 改动在 patches/cua/，不重新复制整套上游仓库。
 - 按 A0 → A1 → C0 → C1 → C2 → C3 推进。O0 原生 OS 能力另行立项。
 - Agent-S、Jev、多 Agent、长期记忆平台、通用路由和独立 GUI 不是必选；新增依赖须有明确用例与验收。
 - 固定 Pi、Node.js、模型、Driver 和策略版本；先核对真实 API，不根据旧示例编造调用。Pi 不内置 MCP 接入或完整安全隔离。
-- UFO 仅保留为历史执行／评估参考，不是运行依赖。修改旧 M 阶段实现时，仍按原计划读取相应固定源码并记录借鉴。
+- UFO 仅是历史执行／评估参考，不是运行依赖；参考 commit 为 be75a7ded2ad98d97819e15ff1b39d4202ac3ac5。新实现按当前阶段计划，不为每个阶段强加旧框架阅读门槛。
 
 ## 安全与权限
 
@@ -39,7 +39,7 @@ Pi 尚未安装或验收；M0 环境、M1 固定计算器流程历史通过，�
 
 ## 仓库协作
 
-保留上游许可证、来源和 cua 内既有 AGENTS.md，不覆盖用户改动、不修改无关项目。只有用户授权才创建远程资源或推送；当前文档更新按用户要求提交至已有 GitHub 仓库的文档 PR，不自行合并 main。
+保留提取代码的上游许可证和来源，不覆盖用户改动、不修改无关项目。下载上游后遵循其 AGENTS.md。只有用户授权才创建远程资源或推送；当前清理按用户要求提交至已有 GitHub PR，不自行合并 main。
 
 遵循 COLLABORATION.md；无密钥 CI 与真实 VM 测试分开。原始桌面证据与凭证不公开上传，同一桌面只允许一个执行者。
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "source-published-local-vm-not-published",
+  "status": "historical-vm-baseline-pi-not-integrated",
   "architecture": "Apple Silicon arm64",
   "guest": {
     "product": "macOS",
@@ -18,9 +18,11 @@
     "lume_installed_version": "0.5.3",
     "driver_version": "0.28.2",
     "python_version": "3.12.14",
-    "claude_agent_sdk_target": "0.2.124",
-    "claude_agent_sdk_verified_installed": false
+    "pi_version": null,
+    "node_version": null,
+    "lume_isolation_patch": "patches/cua/lume-host-isolation.patch"
   },
-  "secrets_in_image": false,
-  "notes": "Manifest records the verified local setup. No VM image is published by this repository."
+  "baseline_contains_model_credentials": false,
+  "development_clone_contains_model_credentials": true,
+  "notes": "Historical local baseline only, not current runtime verification. No VM image is published. Never share the development clone. Pi integration has not been tested."
 }
