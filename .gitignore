@@ -1,0 +1,13 @@
+/downloads/
+/.vm/
+/.vm-tools/
+/evidence/*
+/node_modules/
+/agent/node_modules/
+/.env
+/.env.*
+!/.env.example
+/runs/
+**/__pycache__/
+*.py[cod]
+.DS_Store

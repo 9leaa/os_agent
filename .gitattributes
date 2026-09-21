@@ -1,0 +1,2 @@
+# Unified diff context lines use a required leading space, including blank lines.
+patches/cua/*.patch whitespace=-blank-at-eol

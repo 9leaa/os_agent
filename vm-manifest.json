@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "historical-vm-baseline-pi-not-integrated",
+  "architecture": "Apple Silicon arm64",
+  "guest": {
+    "product": "macOS",
+    "version": "15.6.1",
+    "build": "24G90",
+    "cpu_count": 4,
+    "memory_gib": 8,
+    "disk_gib": 40,
+    "network": "nat",
+    "host_directory_shares": 0,
+    "clipboard_bridge": false
+  },
+  "components": {
+    "cua_base_commit": "9bbfa7dd3e27ca7f1861ede70aaca390174493f9",
+    "lume_installed_version": "0.5.3",
+    "driver_version": "0.28.2",
+    "python_version": "3.12.14",
+    "pi_version": null,
+    "node_version": null,
+    "lume_isolation_patch": "patches/cua/lume-host-isolation.patch"
+  },
+  "baseline_contains_model_credentials": false,
+  "development_clone_contains_model_credentials": true,
+  "notes": "Historical local baseline only, not current runtime verification. No VM image is published. Never share the development clone. Pi integration has not been tested."
+}
