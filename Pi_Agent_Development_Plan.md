@@ -1,6 +1,6 @@
 # Pi 通用 Agent 与 Computer Use 开发计划
 
-版本：v0.3 · 日期：2026-09-21 · 状态：路线已确定，A0–C3 均待实施。
+版本：v0.4 · 日期：2026-09-21 · 状态：A0 已开始，Pi 本地运行时已安装，其余阶段待实施。
 
 ## 1. 目标与选型
 
@@ -8,7 +8,7 @@
 
 主基座固定选择 **Pi**，不继续并行选型。复用其现成 TUI（终端聊天界面）、会话、上下文和 Agent 循环，通过扩展与 SDK 增加项目能力；不从裸循环自建通用平台。Pi 接入拟用 TypeScript，既有 Python 工具保留。
 
-当前未固定 Pi/Node.js 版本，未安装 Pi，未做模型与 Computer Use 集成。A0 负责核实版本、许可证、工具 API、依赖和模型兼容性。历史模型选择为 DeepSeek，优先验证；若文本、图片或工具协议不满足要求，报告证据并确认替代模型，不默默切换或读取个人凭证。
+当前固定 Pi 0.86.1，已在 Node.js 24.9.0 上验证 CLI 启动；模型、受控工具与 Computer Use 尚未集成。A0 继续核实许可证、工具 API、依赖和模型兼容性。历史模型选择为 DeepSeek，优先验证；若文本、图片或工具协议不满足要求，报告证据并确认替代模型，不默默切换或读取个人凭证。
 
 官方依据（2026-09-21 核对）：[Pi 功能与扩展](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/README.md)、[SDK](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/sdk.md)。官方支持不等于本项目已验收。Pi 的会话续接不等于电脑现场恢复，TUI 不等于桌面 GUI。
 
@@ -21,7 +21,7 @@
 - Computer Use：项目扩展调用受控执行适配器，再连接 Cua Driver；截图以模型可读取的图片内容返回，不仅传一个模型不可访问的本地路径。
 - 权限、目标身份、调用预算、停止派发、审计：执行端落实，不能仅靠 Prompt 或工具描述。
 - 完成判定：任务结束申请交给独立验证器；开放式任务缺乏充分证据时明确标为未验证。
-- Agent、工具执行和任务数据先留在现有测试 VM；宿主只做开发、VM 管理和人工查看。不因换 Pi 而扩大宿主权限。
+- A0 的无工具对话和受控文件任务在本地项目测试目录运行；进入桌面操作后，Agent 工具执行和任务数据迁入测试 VM。不因换 Pi 而扩大宿主权限。
 
 Pi 核心不直接提供 MCP 集成；初期优先实现受控自定义工具适配，不为接 Cua 开放任意 Bash。若后来采用 MCP 扩展，单独评审来源、固定版本并验证图片与权限链路。参见 [Cua 接入说明](https://cua.ai/docs/how-to-guides/driver/connect-your-agent)。
 
