@@ -1,0 +1,104 @@
+name: "CI: Test Scripts"
+
+on:
+  pull_request:
+    paths:
+      - ".github/scripts/**"
+      - "TESTING.md"
+      - "libs/cua-driver/rust/README.md"
+      - "libs/cua-driver/rust/**/Cargo.toml"
+      - "libs/cua-driver/rust/crates/*/tests/**"
+      - ".github/release-attribution-config.json"
+      - ".github/release-manifest.schema.json"
+      - ".github/release-backfill/**"
+      - ".github/releases/**"
+      - ".github/workflows/cd-rust-cua-driver.yml"
+      - ".github/workflows/cd-py-cua-driver.yml"
+      - ".github/workflows/cd-py-sandbox.yml"
+      - ".github/workflows/cd-py-computer-server.yml"
+      - ".github/workflows/py-reusable-publish.yml"
+      - ".github/workflows/release-github-reusable.yml"
+      - ".github/workflows/ci-cua-driver-installer-compat.yml"
+      - ".github/workflows/ci-release-metadata.yml"
+      - ".github/workflows/cd-swift-lume.yml"
+      - ".github/workflows/nightly-component-plan.yml"
+      - ".github/workflows/nightly-cua-driver.yml"
+      - ".github/workflows/nightly-lume.yml"
+      - ".github/workflows/release-please.yml"
+      - ".github/workflows/release-bump-version.yml"
+      - ".github/workflows/release-on-merge.yml"
+      - ".release-please-manifest.json"
+      - "release-please-config.json"
+      - "libs/python/cua-sandbox/VERSION"
+      - "libs/python/cua-sandbox/pyproject.toml"
+      - "libs/python/cua-sandbox/uv.lock"
+      - "libs/python/cua-sandbox/cua_sandbox/__init__.py"
+      - ".github/workflows/ci-test-scripts.yml"
+      - ".github/workflows/periodic-cua-sandbox-live.yml"
+      - ".github/workflows/ci-contributor-attribution.yml"
+      - ".github/workflows/e2e-rust-macos.yml"
+      - "docs/release-backfill-runbook.md"
+      - "libs/cua-driver/scripts/**"
+      - "libs/cua-driver/tests/fixtures/apps/cross-platform/electron/build.sh"
+      - "libs/cua-driver/tests/fixtures/apps/cross-platform/electron/package-lock.json"
+      - "libs/cua-driver/tests/fixtures/apps/cross-platform/tauri/build.sh"
+      - "libs/cua-driver/tests/runners/macos-lume/**"
+      - "scripts/ci/macos/**"
+
+jobs:
+  windows-uninstall:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Test Windows release uninstall reporting
+        shell: powershell
+        run: '& ./libs/cua-driver/scripts/tests/uninstall-windows-regression.ps1'
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jsonschema pyyaml pytest toml
+
+      - name: Run tests
+        run: |
+          cd .github/scripts
+          pytest tests/ -v
+
+      - name: Test Cua Driver uninstall scripts
+        run: python -m pytest libs/cua-driver/scripts/tests/ -v
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Preview Sandbox releases offline
+        env:
+          NPM_CONFIG_IGNORE_SCRIPTS: "true"
+        run: |
+          set -euo pipefail
+          EXPECTED_INTEGRITY='sha512-dB7HsFUpAvU1Wj9RGCINUz8Zi2qQDZiGbDEEVnJ7baNfJmk5XdYhuUFL6RcuDGjReGhp1gzY8Tc2g7vHlM4zpg=='
+          test "$(npm view release-please@17.3.0 dist.integrity)" = "$EXPECTED_INTEGRITY"
+          npm install --prefix "$RUNNER_TEMP/sandbox-release-preview" \
+            --ignore-scripts --no-audit --no-fund release-please@17.3.0
+          NODE_PATH="$RUNNER_TEMP/sandbox-release-preview/node_modules" \
+            node .github/scripts/tests/release_please_sandbox_preview.cjs
+
+      - name: Validate historical release backfill
+        run: python3 .github/scripts/release_backfill.py validate
