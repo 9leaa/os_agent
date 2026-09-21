@@ -2,7 +2,7 @@
 
 ## 仓库结构
 
-这是一个单 Git 仓库、两层目录的协作仓库：根目录保存项目规则、计划和真实进度，`cua/` 保存完整 Cua 上游历史及本项目实现。协作者只需 clone 本仓库，不需要再嵌套 clone。
+这是一个单 Git 仓库、两层目录的协作仓库：根目录保存项目规则、计划和真实进度，`cua/` 保存固定 Cua 上游源码快照及本项目实现。协作者只需 clone 本仓库，不需要再嵌套 clone。
 
 ```text
 mac_agent/
@@ -20,7 +20,7 @@ mac_agent/
 | 项目 | 实际状态 |
 |---|---|
 | 宿主 | Apple M4 / 16 GiB / macOS 15.6 (24G84) |
-| Cua | 独立 `cua/` 仓库，分支 `codex/mac-agent-mvp`，基点 `9bbfa7dd3e27ca7f1861ede70aaca390174493f9` |
+| Cua | `cua/` 源码快照；项目版本 `e29e22a83`，上游基点 `9bbfa7dd3e27ca7f1861ede70aaca390174493f9` |
 | 安装版 Lume | 0.5.3，tag commit `754eec754991e1760100621e9bfe7ec1395cc7db`，未替换 |
 | 开发隔离构建 | Cua 基点上的最小 opt-in Lume 补丁，见 sample README |
 | VM | `.vm/mac-agent-mvp-15-6-1`，4 核 / 8 GiB / 40 GiB / NAT |
@@ -33,7 +33,7 @@ mac_agent/
 
 原版 Lume 会隐式共享配置目录和 `/var/empty`，native viewer 会启用剪贴板桥，因此不能只凭没有传 `--shared-dir` 判定隔离。项目内新增 `LUME_MVP_HOST_ISOLATION=1` 启动模式，拒绝宿主挂载和查看器桥接，实际构造零目录共享设备。只用 VM loopback VNC 做开发初始化，不操作宿主应用或个人文件。此开关是开发侧 VM 管理约束，不是受测 Agent 工具策略；M1/M2 仍需另外实现执行端限制。
 
-IPSW 证据见 [镜像记录](evidence/m0-download.json)，来宾版本/SIP 见 [实测截图](evidence/m0-guest-system-confirmed.png)，Driver 校验与版本见 [安装截图](evidence/m0-driver-installed.png)，普通账户限制见 [账户检查](evidence/m0-standard-user-check.png)。这些是 M0 开发证据，不是计算器任务验收。
+M0 镜像、来宾版本/SIP、Driver 和普通账户证据仅保存在本地受控目录，不随公共仓库发布。这些是开发证据，不是计算器任务验收。
 
 配置基线 `mac-agent-mvp-15-6-1-configured` 已停机保存；从基线 clone 到 `mac-agent-mvp-15-6-1-restored` 并启动，普通账户、Driver 权限、应用列表和新截图均已验证。当前开发使用 restored，原 VM 与 configured 保持停机。较早的 installed 仅为系统安装后基线。镜像、VM、凭据和开发二进制均被 Git 忽略。
 
@@ -43,8 +43,8 @@ IPSW 证据见 [镜像记录](evidence/m0-download.json)，来宾版本/SIP 见 
 
 M0 已读 UFO `be75a7ded2ad98d97819e15ff1b39d4202ac3ac5` 的 `documents/docs/infrastructure/agents/overview.md`：Three-Layer Architecture。只借鉴状态、处理流程、执行三种职责，不搬类体系、多 Agent、多设备或长期记忆；分层不等于隔离。
 
-M0 已通过，证据见 `evidence/m0-configured-baseline.json`、`m0-restored-verified.png`、`m0-restored-preview.png`。M1 已读 UFO 固定版本 `ufo/module/dispatcher.py`，新增固定流程与调用记录，17 次调用实际完成 12×34，读取 408 并通过独立 smoke 断言；M2 已确认 DeepSeek 官方 API，待 VM 内凭证配置及 SDK/受限工具接入实测，M3–M4 未开始。
+M0 已在本地通过。M1 已读 UFO 固定版本 `ufo/module/dispatcher.py`，新增固定流程与调用记录，17 次调用实际完成 12×34，读取 408 并通过独立 smoke 断言；M2 已确认 DeepSeek 官方 API，待 VM 内凭证配置及 SDK/受限工具接入实测，M3–M4 未开始。
 
 当前 `--display none` 后台运行，对话中的图片是 VM 静态截图。宿主不运行受测 Driver 或计算器。完整运行方法见 `cua/samples/mac_agent_mvp/README.md`。
 
-M1 最终截图：`evidence/m1-run-2/state-17.png`；日志与独立断言保存在同目录。7 项单元测试在宿主与 VM 内均通过。当前还没有模型执行和 result.txt 完整校验，不代表整个 MVP 已完成。
+M1 截图、日志与独立断言保存在本地受控证据目录。7 项单元测试在宿主与 VM 内均通过。当前还没有模型执行和 result.txt 完整校验，不代表整个 MVP 已完成。

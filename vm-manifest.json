@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "verified-local-baseline-not-published",
+  "status": "source-published-local-vm-not-published",
   "architecture": "Apple Silicon arm64",
   "guest": {
     "product": "macOS",
