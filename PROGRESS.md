@@ -1,8 +1,10 @@
 # 开发进度
 
-更新时间：2026-09-20
+更新时间：2026-09-21
 
 ## 当前状态
+
+联合开发设计与计划 v0.2 已形成评审草案；当前实现仍处于 M2 准备阶段，候选框架接入实测和 J0–J4 验收尚未执行。详见 [整体设计](Mac_OS_Agent_Design_v0.2.md) 与 [开发计划](Mac_OS_Agent_Collaboration_Plan_v0.2.md)。
 
 最新状态：M0 实际验收通过；M1 实际验收通过；M2 准备中，DeepSeek 官方 API 凭证已由用户保存到 VM，文件权限实测正确，SDK 接入与鉴权待完成；M3–M4 未开始。恢复副本已安装 Python 3.12.14；凭证已保存不等于模型可用或 M2 通过。
 
@@ -208,3 +210,10 @@
 - 采用一个 Git 仓库、内外两层目录：根目录保存协作规则、计划和进度，`cua/` 保存固定源码快照及 `samples/mac_agent_mvp/` 实现。公开仓库为 `https://github.com/9leaa/mac_agent`。
 - 发布内容不含 `.vm/`、`.vm-tools/`、`downloads/`、API Key、登录密码和原始运行证据；`evidence/` 仅发布边界说明。VM 继续在各开发者或专用测试机上按 `vm-manifest.json` 独立重建/克隆，不共享正在写入的 VM 磁盘。
 - 发布前重新通过 7 项 Python 单元测试与 2 项 Lume 隔离测试；真实 VM 当前保持停机。M2 SDK 安装与模型鉴权仍未完成，不将源码发布视为 MVP 验收。
+
+### 2026-09-21 / 联合开发整体设计与计划草案
+
+- 新增 Mac_OS_Agent_Design_v0.2.md 和 Mac_OS_Agent_Collaboration_Plan_v0.2.md：先设计架构，再按 J0–J4 安排选型、可用 Agent、常用功能、底座发布与业务定制。
+- 核对当前 OpenCode、Claude Agent SDK、Pi、Deep Agents/LangGraph、OpenClaw 官方资料及固定 Cua 源码；建议优先验证 OpenCode，旧 SDK 路线作为对照。结论是适配判断，未执行框架迁移或新的 VM 验收。
+- 补充框架比较、执行/验证边界、两人职责、VM 串行联调和明确验收条件；工期按两人 3–5 周估算。旧计算器计划保留为 J1 子计划，后续扩大范围须在实施 PR 同步 AGENTS.md 与执行策略。
+- 本轮验证仅为文档链接、结构和补丁检查；没有安装依赖、启动 VM、调用模型或重新运行单元/GUI 测试。M2–M4 与 J0–J4 均未因此变为通过。

@@ -1,5 +1,8 @@
 # Mac OS Agent MVP
 
+联合开发评审稿：先读 [整体设计 v0.2](Mac_OS_Agent_Design_v0.2.md)，再读 [开发计划 v0.2](Mac_OS_Agent_Collaboration_Plan_v0.2.md)。新方案比较当前 Agent 框架，建议优先验证 OpenCode，保留 Claude Agent SDK 路线作对照；这是设计建议，运行代码与实际验收状态尚未改变。
+
+
 ## 仓库结构
 
 这是一个单 Git 仓库、两层目录的协作仓库：根目录保存项目规则、计划和真实进度，`cua/` 保存固定 Cua 上游源码快照及本项目实现。协作者只需 clone 本仓库，不需要再嵌套 clone。
@@ -45,6 +48,6 @@ M0 已读 UFO `be75a7ded2ad98d97819e15ff1b39d4202ac3ac5` 的 `documents/docs/inf
 
 M0 已在本地通过。M1 已读 UFO 固定版本 `ufo/module/dispatcher.py`，新增固定流程与调用记录，17 次调用实际完成 12×34，读取 408 并通过独立 smoke 断言；M2 已确认 DeepSeek 官方 API，待 VM 内凭证配置及 SDK/受限工具接入实测，M3–M4 未开始。
 
-当前 `--display none` 后台运行，对话中的图片是 VM 静态截图。宿主不运行受测 Driver 或计算器。完整运行方法见 `cua/samples/mac_agent_mvp/README.md`。
+最后一次运行记录为恢复 VM 已于 2026-09-21 停机。此前使用 `--display none` 后台运行；本轮设计工作没有启动 VM。完整运行方法见 `cua/samples/mac_agent_mvp/README.md`。
 
 M1 截图、日志与独立断言保存在本地受控证据目录。7 项单元测试在宿主与 VM 内均通过。当前还没有模型执行和 result.txt 完整校验，不代表整个 MVP 已完成。
