@@ -4,16 +4,18 @@
 
 ## 当前状态
 
-联合开发设计与计划 v0.2 已形成评审草案；当前实现仍处于 M2 准备阶段，候选框架接入实测和 J0–J4 验收尚未执行。详见 [整体设计](Mac_OS_Agent_Design_v0.2.md) 与 [开发计划](Mac_OS_Agent_Collaboration_Plan_v0.2.md)。
+用户已确定 Pi 为通用 Agent 基座，先 A0/A1 可用与二开基线，再 C0–C3 Computer Use，OS 原生能力后置。当前主计划为 [Pi 开发计划 v0.3](Pi_Agent_Development_Plan.md)。Pi/Node.js 版本未固定，Pi 安装、模型接入与 A0–C3 验收均未执行；旧 OpenCode／Claude SDK 路线不再作为当前主线。
 
-最新状态：M0 实际验收通过；M1 实际验收通过；M2 准备中，DeepSeek 官方 API 凭证已由用户保存到 VM，文件权限实测正确，SDK 接入与鉴权待完成；M3–M4 未开始。恢复副本已安装 Python 3.12.14；凭证已保存不等于模型可用或 M2 通过。
+历史状态：M0 与 M1 实际验收通过，作为测试资产保留；旧 M2 暂停且未通过，M3–M4 未完成。恢复副本记录有 Python 3.12.14 和已保存的开发凭证，但尚无模型鉴权成功记录；不能据此宣称 Pi 可用。本轮不启动 VM、不读取凭证，最后的运行记录仍为停机。
 
 | 阶段 | 当前状态 | 实际证据 | 下一步 |
 |---|---|---|---|
 | M0 | 已通过 | m0-configured-baseline.json、m0-restored-verified.png、m0-restored-preview.png | 保留停机基线 |
 | M1 | 已通过 | m1-run-2/smoke_assertion.json、trace.jsonl、state-17.png | 保留固定流程与证据 |
-| M2 | 准备中 | 已读 _setup_strategies 与官方 SDK 示例；VM 凭证文件及权限已验证 | 完成 SDK 鉴权和受限工具接入实测 |
-| M3–M4 | 未开始 | 无 | 前序验收后推进 |
+| M2 | 暂停，未通过 | 已读 _setup_strategies 与旧 SDK 示例；历史凭证权限已验证 | 有效验证要求纳入 Pi 的 C0，不继续旧 SDK 路线 |
+| M3–M4 | 未完成 | 无完整验收 | 文件验证与异常要求纳入 C0/C2 |
+| A0–A1 | 待开始 | Pi 路线已确定，无运行证据 | 锁定版本，完成通用 Agent 使用与二开基线 |
+| C0–C3 | 待开始 | 可复用 M0/M1，不代表新阶段通过 | 在 A1 通过后验收 Computer Use |
 
 以下为历史记录；以本节和末尾本轮结果为准。
 
@@ -217,3 +219,12 @@
 - 核对当前 OpenCode、Claude Agent SDK、Pi、Deep Agents/LangGraph、OpenClaw 官方资料及固定 Cua 源码；建议优先验证 OpenCode，旧 SDK 路线作为对照。结论是适配判断，未执行框架迁移或新的 VM 验收。
 - 补充框架比较、执行/验证边界、两人职责、VM 串行联调和明确验收条件；工期按两人 3–5 周估算。旧计算器计划保留为 J1 子计划，后续扩大范围须在实施 PR 同步 AGENTS.md 与执行策略。
 - 本轮验证仅为文档链接、结构和补丁检查；没有安装依赖、启动 VM、调用模型或重新运行单元/GUI 测试。M2–M4 与 J0–J4 均未因此变为通过。
+
+### 2026-09-21 / Pi 路线与 GitHub 开发文档
+
+- 用户明确选定 Pi：先通用 Agent 可用，再增强 Computer Use，macOS 原生能力后置；不再继续候选框架对比。
+- 重写 README，新增 Pi_Agent_Development_Plan.md（v0.3），列出 A0/A1/C0–C3/O0 的交付与验收；Pi 以 TUI、扩展和 SDK 接入，现有 Python/Cua 测试资产保留。
+- 同步根 AGENTS、协作说明与进度；旧交接、v0.1/v0.2 顶部标为历史参考，不删历史失败和验收记录，不改上游规则、许可证或运行代码。
+- 本轮只做文档整理。Pi 未安装、依赖未锁定、模型与 Computer Use 未集成；未启动 VM、调用模型、读取凭证或重跑真实桌面测试。
+- 验证：9 份发布文档的相对文件链接检查通过，git diff --check 通过；发布副本执行 python3 -m unittest discover -s cua/samples/mac_agent_mvp/tests -v，7 项 mock 单元测试通过。未新增 Pi 测试，不把旧样例测试作为 Pi 可用证明。
+- 下一步：按 A0 实施 Pi 版本与隔离配置、项目启动入口、受控文件任务和图片链路预检；计划不自动授予新运行权限。

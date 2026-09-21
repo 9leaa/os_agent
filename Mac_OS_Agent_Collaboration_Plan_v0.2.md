@@ -1,5 +1,7 @@
 # Mac OS Agent 联合开发计划书 v0.2
 
+> 历史参考（2026-09-21 更新）：当前主路线已改为 **Pi 通用 Agent → Computer Use → 后续 OS 原生能力**。请先读 [Pi 开发计划](Pi_Agent_Development_Plan.md) 和 [当前进度](PROGRESS.md)。下文保留原始设计／交接语境；旧 SDK 选型、阶段顺序和启动指令不再是当前开发指令。计算器与隔离验收要求继续作为回归参考。
+
 日期：2026-09-21。状态：评审草案，所有新增阶段均未验收。
 设计依据：[整体设计方案](Mac_OS_Agent_Design_v0.2.md)。本计划保留 [v0.1 计算器计划](Mac_OS_Agent_MVP_Plan_v0.1.md) 作为基础回归规范。
 
